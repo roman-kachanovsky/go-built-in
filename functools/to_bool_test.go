@@ -6,7 +6,7 @@ type unexpectedType struct {
 	field int
 }
 
-var cases = []struct {
+var boolCases = []struct {
 	in interface{}
 	want interface{}
 	e bool
@@ -50,7 +50,7 @@ var cases = []struct {
 }
 
 func TestToBoolSafe(t *testing.T) {
-	for _, c := range cases {
+	for _, c := range boolCases {
 		got, err := ToBoolSafe(c.in)
 
 		if err != nil && !c.e {
@@ -64,7 +64,7 @@ func TestToBoolSafe(t *testing.T) {
 }
 
 func TestToBool(t *testing.T) {
-	for _, c := range cases {
+	for _, c := range boolCases {
 		if !c.e {
 			got := ToBool(c.in)
 
