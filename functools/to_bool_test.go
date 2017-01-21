@@ -54,7 +54,7 @@ func TestToBoolSafe(t *testing.T) {
 		got, err := ToBoolSafe(c.in)
 
 		if err != nil && !c.e {
-			t.Errorf("ToBoolSafe raised %v", err)
+			t.Errorf("ToBoolSafe(%v) raised %v", c.in, err)
 		}
 
 		if got != c.want {
