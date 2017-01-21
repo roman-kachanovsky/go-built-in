@@ -5,15 +5,27 @@ import (
 	"errors"
 )
 
+/*
+'Any' function returns 'true' if any element of the iterable 'slice' is 'true'.
+If the slice is empty, returns 'false'. Each element of the slice is converted to bool
+by 'functools.ToBool' function.
+
+	Any(slice) bool
+	AnySafe(slice) (bool, err)
+
+'AnyFunc' function applies 'func' parameter for each element of the iterable 'slice'
+and returns 'true' if any result of 'func' calling is 'true'. If the slice is empty,
+returns 'false'.
+
+	AnyFunc(func, slice) bool
+	AnyFuncSafe(func, slice) (bool, err)
+*/
+
 func any(function, slice interface{}) bool {
 	in := reflect.ValueOf(slice)
 
 	if in.Kind() != reflect.Slice {
 		raise(errors.New("The passed collection is not a slice"), "Any")
-	}
-
-	if in.Len() == 0 {
-		return false
 	}
 
 	fn := reflect.ValueOf(function)

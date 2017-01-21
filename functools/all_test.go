@@ -14,7 +14,7 @@ func TestAll(t *testing.T) {
 		{[]bool{false, false, false, false, false}, false},
 		{[]float64{0.1, 5.2, 3.5, 1.005, 0.2}, true},
 		{[]float64{0.1, 0.0, 3.5, 1.005, 0.2}, false},
-		{[]string{}, false},
+		{[]string{}, true},
 		{[]string{"a", "b", "c"}, true},
 		{[]string{"a", "", "c"}, false},
 		{[]map[int]int{{1: 1, 2: 2, 3: 3}, {1: 1, 2: 2, 3: 3}}, true},

@@ -5,6 +5,15 @@ import (
 	"errors"
 )
 
+/*
+'ToBool' function returns 'true' if numeric 'value' parameter isn't equal to zero,
+string or iterable collections aren't empty, and for bool 'value' parameter it returns
+original value.
+
+	ToBool(value) bool
+	ToBoolSafe(value) (bool, err)
+*/
+
 func toBool(value interface{}) bool {
 	if value == nil {
 		return false
