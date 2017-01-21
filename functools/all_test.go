@@ -18,6 +18,7 @@ func TestAll(t *testing.T) {
 		{[]string{"a", "b", "c"}, true},
 		{[]string{"a", "", "c"}, false},
 		{[]map[int]int{{1: 1, 2: 2, 3: 3}, {1: 1, 2: 2, 3: 3}}, true},
+		{[]map[int]int{{1: 1, 2: 2, 3: 3}, {}, {1: 1, 2: 2, 3: 3}}, false},
 	}
 
 	for _, c := range cases {
@@ -48,7 +49,7 @@ func TestAllSafe(t *testing.T) {
 			t.Errorf("AllSafe(%v) raised %v", c.in, err)
 		}
 
-		if got != c.want {
+		if err == nil && got != c.want {
 			t.Errorf("AllSafe(%v) == %v want %v", c.in, got, c.want)
 		}
 	}
@@ -100,7 +101,7 @@ func TestAllFuncSafe(t *testing.T) {
 			t.Errorf("AllFuncSafe(correctFunc, %v) raised %v", c.in, err)
 		}
 
-		if got != c.want {
+		if err == nil && got != c.want {
 			t.Errorf("AllFuncSafe(correctFunc, %v) == %v want %v", c.in, got, c.want)
 		}
 	}
