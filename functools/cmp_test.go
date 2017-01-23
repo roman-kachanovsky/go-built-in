@@ -26,6 +26,7 @@ var cmpCases = []struct {
 	{1, 2.4, -1, true},
 	{float64(1), 2.4, -1, false},
 	{"a", 'a', 0, true},
+	{map[int]int{1: 1, 2: 2, 3: 3}, map[int]int{4: 4}, 1, false},
 }
 
 func TestCmpSafe(t *testing.T) {
