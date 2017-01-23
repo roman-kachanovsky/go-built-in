@@ -22,24 +22,24 @@ returns 'false'.
 */
 
 func any(function, slice interface{}) bool {
-	in := reflect.ValueOf(slice)
+	rv := reflect.ValueOf(slice)
 
-	if in.Kind() != reflect.Slice {
+	if rv.Kind() != reflect.Slice {
 		raise(errors.New("The passed collection is not a slice"), "Any")
 	}
 
 	fn := reflect.ValueOf(function)
-	inType := in.Type().Elem()
+	t := rv.Type().Elem()
 
-	if !verifyAnyFuncType(fn, inType) {
-		raise(errors.New("Function must be of type func(" + inType.String() +
+	if !verifyAnyFuncType(fn, t) {
+		raise(errors.New("Function must be of type func(" + t.String() +
 			") bool or func(interface{}) bool"), "Any")
 	}
 
 	var param [1]reflect.Value
 
-	for i := 0; i < in.Len(); i++ {
-		param[0] = in.Index(i)
+	for i := 0; i < rv.Len(); i++ {
+		param[0] = rv.Index(i)
 
 		if fn.Call(param[:])[0].Bool() {
 			return true

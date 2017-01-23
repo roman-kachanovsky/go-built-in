@@ -19,25 +19,27 @@ func toBool(value interface{}) bool {
 		return false
 	}
 
+	rv := reflect.ValueOf(value)
+
 	switch value.(type) {
 	case int, int8, int16, int32, int64:
-		return reflect.ValueOf(value).Int() != 0
+		return rv.Int() != 0
 	case uint, uint8, uint16, uint32, uint64:
-		return reflect.ValueOf(value).Uint() != 0
+		return rv.Uint() != 0
 	case float32, float64:
-		return reflect.ValueOf(value).Float() != 0.0
+		return rv.Float() != 0.0
 	case string:
-		return value.(string) != ""
+		return rv.String() != ""
 	case bool:
-		return value.(bool)
+		return rv.Bool()
 	default:
-		r := reflect.TypeOf(value)
+		k := rv.Type().Kind()
 
-		if r.Kind() == reflect.Array || r.Kind() == reflect.Slice || r.Kind() == reflect.Map {
-			return reflect.ValueOf(value).Len() > 0
+		if k == reflect.Array || k == reflect.Slice || k == reflect.Map {
+			return rv.Len() > 0
 		}
 
-		raise(errors.New("Unexpected type (" + r.String() + ") of value"), "ToBool")
+		raise(errors.New("Unexpected type (" + k.String() + ") of value"), "ToBool")
 	}
 	return false
 }
