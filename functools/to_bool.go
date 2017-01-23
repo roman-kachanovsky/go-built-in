@@ -22,24 +22,24 @@ func toBool(value interface{}) bool {
 	rv := reflect.ValueOf(value)
 
 	switch value.(type) {
-	case int, int8, int16, int32, int64:
-		return rv.Int() != 0
-	case uint, uint8, uint16, uint32, uint64:
-		return rv.Uint() != 0
-	case float32, float64:
-		return rv.Float() != 0.0
-	case string:
-		return rv.String() != ""
-	case bool:
-		return rv.Bool()
-	default:
-		k := rv.Type().Kind()
+		case int, int8, int16, int32, int64:
+			return rv.Int() != 0
+		case uint, uint8, uint16, uint32, uint64:
+			return rv.Uint() != 0
+		case float32, float64:
+			return rv.Float() != 0.0
+		case string:
+			return rv.String() != ""
+		case bool:
+			return rv.Bool()
+		default:
+			k := rv.Type().Kind()
 
-		if k == reflect.Array || k == reflect.Slice || k == reflect.Map {
-			return rv.Len() > 0
-		}
+			if k == reflect.Array || k == reflect.Slice || k == reflect.Map {
+				return rv.Len() > 0
+			}
 
-		raise(errors.New("Unexpected type (" + k.String() + ") of value"), "ToBool")
+			raise(errors.New("Unexpected type (" + k.String() + ") of value"), "ToBool")
 	}
 	return false
 }
