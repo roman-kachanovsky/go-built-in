@@ -20,30 +20,12 @@ func toBool(value interface{}) bool {
 	}
 
 	switch value.(type) {
-	case int:
-		return value.(int) != 0
-	case int8:
-		return value.(int8) != 0
-	case int16:
-		return value.(int16) != 0
-	case int32:
-		return value.(int32) != 0
-	case int64:
-		return value.(int64) != 0
-	case uint:
-		return value.(uint) != 0
-	case uint8:
-		return value.(uint8) != 0
-	case uint16:
-		return value.(uint16) != 0
-	case uint32:
-		return value.(uint32) != 0
-	case uint64:
-		return value.(uint64) != 0
-	case float32:
-		return value.(float32) != 0.0
-	case float64:
-		return value.(float64) != 0.0
+	case int, int8, int16, int32, int64:
+		return reflect.ValueOf(value).Int() != 0
+	case uint, uint8, uint16, uint32, uint64:
+		return reflect.ValueOf(value).Uint() != 0
+	case float32, float64:
+		return reflect.ValueOf(value).Float() != 0.0
 	case string:
 		return value.(string) != ""
 	case bool:
