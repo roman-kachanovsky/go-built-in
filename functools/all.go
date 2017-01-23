@@ -8,13 +8,14 @@ import (
 /*
 'All' function returns 'true' if all elements of iterable 'slice' are 'true'
 or if the slice is empty. Each element of the slice is converted to bool
-by 'functools.ToBool' function.
+by 'functools.ToBool' function. Function allowes slices and arrays.
 
 	All(slice) bool
 	AllSafe(slice) (bool, err)
 
 'AllFunc' function applies 'func' parameter for each element of the iterable 'slice'
 and returns 'true' if all results of 'func' calling are 'true' or if the slice is empty.
+Function allowes slices and arrays.
 
 	AllFunc(func, slice) bool
 	AllFuncSafe(func, slice) (bool, err)
@@ -23,8 +24,8 @@ and returns 'true' if all results of 'func' calling are 'true' or if the slice i
 func all(function, slice interface{}) bool {
 	rv := reflect.ValueOf(slice)
 
-	if rv.Kind() != reflect.Slice {
-		raise(errors.New("The passed collection is not a slice"), "All")
+	if rv.Kind() != reflect.Slice && rv.Kind() != reflect.Array {
+		raise(errors.New("The passed collection is not a slice or an array"), "All")
 	}
 
 	fn := reflect.ValueOf(function)

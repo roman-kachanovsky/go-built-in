@@ -51,7 +51,7 @@ func TestMaxSafe(t *testing.T) {
 		}
 
 		if err == nil && !reflect.DeepEqual(got, c.want) {
-			t.Errorf("Max(%v) == %v want %v", c.in, got, c.want)
+			t.Errorf("MaxSafe(%v) == %v want %v", c.in, got, c.want)
 		}
 	}
 }

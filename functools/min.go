@@ -6,14 +6,14 @@ import (
 )
 
 /*
-'Max' function returns the largest item in an iterable collection.
+'Min' function returns the smallest item in an iterable collection.
 It compares items by 'Cmp' function. Function allows slices and arrays.
 
-	Max(slice) interface{}
-	MaxSafe(slice) (interface{}, err)
+	Min(slice) interface{}
+	MinSafe(slice) (interface{}, err)
 */
 
-func max(slice interface{}) interface{} {
+func min(slice interface{}) interface{} {
 	rv := reflect.ValueOf(slice)
 
 	if rv.Kind() != reflect.Slice && rv.Kind() != reflect.Array {
@@ -25,12 +25,12 @@ func max(slice interface{}) interface{} {
 	}
 
 	fn := reflect.ValueOf(interface{}(Cmp))
-	// index: 0 - biggest value, 1 - current value
+	// index: 0 - least value, 1 - current value
 	params := [2]reflect.Value{rv.Index(0), rv.Index(0)}
 
 	for i := 0; i < rv.Len(); i++ {
 		params[1] = rv.Index(i)
-		if fn.Call(params[:])[0].Int() < 0 {
+		if fn.Call(params[:])[0].Int() > 0 {
 			params[0] = rv.Index(i)
 		}
 	}
@@ -38,12 +38,12 @@ func max(slice interface{}) interface{} {
 	return params[0].Interface()
 }
 
-func Max(slice interface{}) interface{} {
-	return max(slice)
+func Min(slice interface{}) interface{} {
+	return min(slice)
 }
 
-func MaxSafe(slice interface{}) (result interface{}, err error) {
+func MinSafe(slice interface{}) (result interface{}, err error) {
 	defer except(&err)
-	result = max(slice)
+	result = min(slice)
 	return
 }

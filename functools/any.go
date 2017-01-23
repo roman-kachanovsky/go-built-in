@@ -8,14 +8,14 @@ import (
 /*
 'Any' function returns 'true' if any element of the iterable 'slice' is 'true'.
 If the slice is empty, returns 'false'. Each element of the slice is converted to bool
-by 'functools.ToBool' function.
+by 'functools.ToBool' function. Function allows slices and arrays.
 
 	Any(slice) bool
 	AnySafe(slice) (bool, err)
 
 'AnyFunc' function applies 'func' parameter for each element of the iterable 'slice'
 and returns 'true' if any result of 'func' calling is 'true'. If the slice is empty,
-returns 'false'.
+returns 'false'. Function allows slices and arrays.
 
 	AnyFunc(func, slice) bool
 	AnyFuncSafe(func, slice) (bool, err)
@@ -24,8 +24,8 @@ returns 'false'.
 func any(function, slice interface{}) bool {
 	rv := reflect.ValueOf(slice)
 
-	if rv.Kind() != reflect.Slice {
-		raise(errors.New("The passed collection is not a slice"), "Any")
+	if rv.Kind() != reflect.Slice && rv.Kind() != reflect.Array {
+		raise(errors.New("The passed collection is not a slice or an array"), "Any")
 	}
 
 	fn := reflect.ValueOf(function)
