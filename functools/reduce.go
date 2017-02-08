@@ -5,6 +5,15 @@ import (
 	"errors"
 )
 
+/*
+'Reduce' applies 'func' of two arguments cumulatively to the items of iterable 'slice',
+from left to right, so as to reduce the iterable to a single 'acc' value.
+Function allowes slices and arrays.
+
+	Reduce(func, slice, acc) acc
+	ReduceSafe(func, slice, acc) (acc, err)
+ */
+
 func reduce(function, slice, acc interface{}) interface{} {
 	rv := reflect.ValueOf(slice)
 
