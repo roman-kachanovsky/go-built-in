@@ -9,8 +9,8 @@ import (
 'Partial' returns a new partial object which when called will behave like 'func'
 called with the positional arguments args.
 
-	Partial(func, args...) func
-	PartialSafe(func, args...) (func, err)
+	Partial(func, args...) func(args...) interface{}
+	PartialSafe(func, args...) (func(args...) interface{}, err)
 
  */
 

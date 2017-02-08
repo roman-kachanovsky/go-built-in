@@ -15,9 +15,7 @@ func TestPartial(t *testing.T) {
 	}
 
 	for _, c := range cases {
-		partialedFunc := Partial(c.f, c.firstArgs...)
-
-		got := partialedFunc(c.secondArgs...)
+		got := Partial(c.f, c.firstArgs...)(c.secondArgs...)
 
 		if got != c.want {
 			t.Errorf("Partial(func, %v)(%v) == %v want %v", c.firstArgs, c.secondArgs, got, c.want)
